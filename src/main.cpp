@@ -4,6 +4,9 @@
 #include "PID.h"
 #include <math.h>
 
+#include <gtest/gtest.h>
+#include "tests/PIDtest.h"
+
 // for convenience
 using json = nlohmann::json;
 
@@ -33,7 +36,17 @@ std::string hasData(std::string s) {
   return "";
 }
 
-int main() {
+int main(int argc, char **argv) {
+  if (argc > 1 && strcmp(argv[1], "test") == 0) {
+    testing::InitGoogleTest(&argc, argv);
+    // see https://stackoverflow.com/questions/7208070/googletest-how-to-skip-a-test
+    // testing::GTEST_FLAG(filter) = "-PathPlannerTest.should_drive_with_max_50_mph";
+    // testing::GTEST_FLAG(filter) = "ParametricSplineTest.*";
+    // testing::GTEST_FLAG(filter) = "CoordsConverterTest.*";
+    // testing::GTEST_FLAG(filter) = "PathPlannerTest.*";
+    return RUN_ALL_TESTS();
+  }
+
   uWS::Hub h;
 
   PID pid;
