@@ -4,23 +4,9 @@
 class PID {
  public:
   /*
-   * Errors
-   */
-  double p_error;
-  double i_error;
-  double d_error;
-
-  /*
-   * Coefficients
-   */
-  double Kp;
-  double Ki;
-  double Kd;
-
-  /*
    * Constructor
    */
-  PID();
+  PID(double dt);
 
   /*
    * Destructor.
@@ -41,6 +27,24 @@ class PID {
    * Calculate the total PID error.
    */
   double TotalError();
+
+ private:
+  /*
+   * Errors
+   */
+  double p_error;
+  double i_error;
+  double d_error;
+  double prevCte;
+
+  /*
+   * Coefficients
+   */
+  double Kp;
+  double Ki;
+  double Kd;
+
+  const double dt;
 };
 
 #endif /* PID_H */
