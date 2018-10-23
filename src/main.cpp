@@ -75,6 +75,7 @@ int main(int argc, char **argv) {
    *    If you don’t see oscillation, increase the integrator gain by steps of 8 or ten until you do.
    *    From this point, try to find the gain where the system just breaks into oscillation, and then back the gain off by a factor of 2 or 4.
    */
+// Version 1:
   // adjusting differential gain:
 //  const double dt = 1.0;
 //  const double Kp = 0.01;
@@ -86,11 +87,26 @@ int main(int argc, char **argv) {
 //  const double Ki = 0;
 //  const double Kd = (100 * 0.01) / 2;
   // increasing integral gain:
+//  const double dt = 1.0;
+//  const double Kp = 1.0 / 100.0 * ((100 * 0.01) / 2) * 10 * 10 / 4;
+//  const double Ki = 0; // (Kp * Kp / (100 * 0.01) / 2) / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10;
+//  const double Kd = (100 * 0.01) / 2;
+  // Version 2:
+  // adjusting differential gain:
+//  const double dt = 1.0;
+//  const double Kp = 0.01;
+//  const double Ki = 0;
+//  const double Kd = 100 * Kp;
+  // tune proportional gain:
+//  const double dt = 1.0;
+//  const double Kp = 1.0 / 100.0 * (100 * 0.01) * 10 * 10 / 2 / 2 / 2 / 2;
+//  const double Ki = 0;
+//  const double Kd = 100 * 0.01;
+  // increasing integral gain:
   const double dt = 1.0;
-  const double Kp = 1.0 / 100.0 * ((100 * 0.01) / 2) * 10 * 10 / 4;
-  const double Ki = 0; // (Kp * Kp / (100 * 0.01) / 2) / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10;
-  const double Kd = (100 * 0.01) / 2;
-
+  const double Kp = 1.0 / 100.0 * (100 * 0.01) * 10 * 10 / 2 / 2 / 2 / 2;
+  const double Kd = 100 * 0.01;
+  const double Ki = Kp * Kp / Kd;
   PID pid(dt, Kp, Ki, Kd);
 
   h.onMessage(
