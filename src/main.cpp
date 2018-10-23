@@ -88,10 +88,12 @@ int main(int argc, char **argv) {
 //  const double Ki = 0;
 //  const double Kd = (100 * 0.01) / 2;
   // increasing integral gain:
-//  const double dt = 1.0;
-//  const double Kp = 1.0 / 100.0 * ((100 * 0.01) / 2) * 10 * 10 / 4;
-//  const double Ki = 0; // (Kp * Kp / (100 * 0.01) / 2) / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10;
-//  const double Kd = (100 * 0.01) / 2;
+  // ganz ok:
+  const double dt = 1.0;
+  const double Kp = 1.0 / 100.0 * ((100 * 0.01) / 2) * 10 * 10 / 4;  // 0.125
+  const double Ki = (Kp * Kp / (100 * 0.01) / 2) / 10 / 10 / 10 / 10 / 10 / 10
+      / 10 / 10 / 10 / 10;  // 7.8125000000000023e-13
+  const double Kd = (100 * 0.01) / 2;  // 0.5
   // Version 2:
   // adjusting differential gain:
 //  const double dt = 1.0;
@@ -104,10 +106,11 @@ int main(int argc, char **argv) {
 //  const double Ki = 0;
 //  const double Kd = 100 * 0.01;
   // increasing integral gain:
+  // Version 1 ist besser als Version 2
 //  const double dt = 1.0;
-//  const double Kp = 1.0 / 100.0 * (100 * 0.01) * 10 * 10 / 2 / 2 / 2 / 2;
-//  const double Kd = 100 * 0.01;
-//  const double Ki = Kp * Kp / Kd;
+//  const double Kp = 1.0 / 100.0 * (100 * 0.01) * 10 * 10 / 2 / 2 / 2 / 2; // 0.0625
+//  const double Kd = 100 * 0.01; // 1
+//  const double Ki = Kp * Kp / Kd; // 0.00390625
   PID pid(dt, Kp, Ki, Kd);
 
   h.onMessage(
