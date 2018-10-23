@@ -6,17 +6,12 @@ class PID {
   /*
    * Constructor
    */
-  PID(double dt);
+  PID(double dt, double Kp, double Ki, double Kd);
 
   /*
    * Destructor.
    */
   virtual ~PID();
-
-  /*
-   * Initialize PID.
-   */
-  void Init(double Kp, double Ki, double Kd);
 
   /*
    * Update the PID error variables given cross track error.
@@ -39,10 +34,9 @@ class PID {
   /*
    * Coefficients
    */
-  double Kp;
-  double Ki;
-  double Kd;
-
+  const double Kp;
+  const double Ki;
+  const double Kd;
   const double dt;
 };
 

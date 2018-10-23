@@ -11,7 +11,7 @@ double getNewProcessVariable(const double PV, double output) {
 
 TEST(PIDTest, shouldGetOutput) {
   // GIVEN
-  PID pid(1.0);
+  PID pid(1.0, 0, 0, 0);
 
   // WHEN
 
