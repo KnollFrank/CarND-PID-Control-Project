@@ -62,7 +62,8 @@ int main(int argc, char **argv) {
    * 4. I like to push the gain up until the system is on the verge of oscillation then back the gain off by a factor of two or four.
    *
    * tune proportional gain:
-   * 1. set the proportional gain to a starting value between 1 and 100: 1 / 100 of the derivative gain value: Kp = 1.0/100.0 * Kd
+   * 1. set the proportional gain to a starting value between 1 and 100: 1 / 100 of the derivative gain value:
+   *    Kp = 1.0/100.0 * Kd
    * 2. If you see oscillation, drop the proportional gain by factors of eight or 10 until the oscillation stops.
    *    If you don’t see oscillation, increase the proportional gain by factors of eight or 10 until you start seeing oscillation or excessive overshoot.
    *    I usually tune right up to the point of too much overshoot then reduce the gain by a factor of two or four.
@@ -103,10 +104,10 @@ int main(int argc, char **argv) {
 //  const double Ki = 0;
 //  const double Kd = 100 * 0.01;
   // increasing integral gain:
-  const double dt = 1.0;
-  const double Kp = 1.0 / 100.0 * (100 * 0.01) * 10 * 10 / 2 / 2 / 2 / 2;
-  const double Kd = 100 * 0.01;
-  const double Ki = Kp * Kp / Kd;
+//  const double dt = 1.0;
+//  const double Kp = 1.0 / 100.0 * (100 * 0.01) * 10 * 10 / 2 / 2 / 2 / 2;
+//  const double Kd = 100 * 0.01;
+//  const double Ki = Kp * Kp / Kd;
   PID pid(dt, Kp, Ki, Kd);
 
   h.onMessage(
