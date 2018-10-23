@@ -50,6 +50,29 @@ int main(int argc, char **argv) {
   uWS::Hub h;
 
   // https://robotics.stackexchange.com/questions/167/what-are-good-strategies-for-tuning-pid-loops
+  /*
+   * PID Without a PhD, by Tim Wescott
+   *
+   * adjusting differential gain:
+   * 1. Set proportional gain to some small value (one or less)
+   * 2. Start with about 100 times more differential gain than proportional gain
+   * 3. Now start increasing the differential gain until you see oscillation, excessive noise, or excessive (more than 50%) overshoot on the drive or plant output
+   * 4. I like to push the gain up until the system is on the verge of oscillation then back the gain off by a factor of two or four.
+   *
+   * tune proportional gain:
+   * 1. set the proportional gain to a starting value between 1 and 100: 1 / 100 of the derivative gain value
+   * 2. If you see oscillation, drop the proportional gain by factors of eight or 10 until the oscillation stops.
+   *    If you don’t see oscillation, increase the proportional gain by factors of eight or 10 until you start seeing oscillation or excessive overshoot.
+   *    I usually tune right up to the point of too much overshoot then reduce the gain by a factor of two or four.
+   *    Once you are close, fine tune the proportional gain by factors of two until you like what you see.
+   *
+   * increasing integral gain:
+   * 1a. setze integral gain Ki so, daß: Kp/Kd = Ki/Kp, also Ki := Kp/Kd * Kp = Kp^2/Kd
+   * 1b. If you are not using derivative gain, a good starting value for the integrator gain will be around 1 / 100 of the proportional gain.
+   * 2. If you see oscillation, decrease the integrator gain by steps of 8 or 10 until the oscillation goes away.
+   *    If you don’t see oscillation, increase the integrator gain by steps of 8 or ten until you do.
+   *    From this point, try to find the gain where the system just breaks into oscillation, and then back the gain off by a factor of 2 or 4.
+   */
   const double dt = 1.0;
   const double Kp = 0.134611;
   const double Ki = 0.000270736;
