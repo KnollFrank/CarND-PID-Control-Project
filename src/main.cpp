@@ -51,9 +51,9 @@ int main(int argc, char **argv) {
 
   // https://robotics.stackexchange.com/questions/167/what-are-good-strategies-for-tuning-pid-loops
   const double dt = 1.0;
-  const double Kp = -0.134611;
-  const double Ki = -0.000270736;
-  const double Kd = -3.05349;
+  const double Kp = 0.134611;
+  const double Ki = 0.000270736;
+  const double Kd = 3.05349;
   PID pid(dt, Kp, Ki, Kd);
 
   h.onMessage(
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
                * another PID controller to control the speed!
                */
               pid.UpdateError(cte);
-              steer_value = pid.TotalError();
+              steer_value = -pid.TotalError();
 
               // DEBUG
               std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
