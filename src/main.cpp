@@ -51,9 +51,10 @@ int main(int argc, char **argv) {
 
   PID pid(1.0);
   // TODO: Initialize the pid variable.
-  const double Kp = 0;
-  const double Ki = 0;
-  const double Kd = 0;
+  // https://robotics.stackexchange.com/questions/167/what-are-good-strategies-for-tuning-pid-loops
+  const double Kp = -0.134611;
+  const double Ki = -0.000270736;
+  const double Kd = -3.05349;
   pid.Init(Kp, Ki, Kd);
 
   h.onMessage(
