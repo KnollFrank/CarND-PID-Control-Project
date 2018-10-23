@@ -53,14 +53,16 @@ int main(int argc, char **argv) {
   /*
    * PID Without a PhD, by Tim Wescott
    *
+   * Ki = Kp = Kd = 0
+   *
    * adjusting differential gain:
    * 1. Set proportional gain to some small value (one or less)
-   * 2. Start with about 100 times more differential gain than proportional gain
+   * 2. Start with about 100 times more differential gain than proportional gain: Kd := 100 * Kp
    * 3. Now start increasing the differential gain until you see oscillation, excessive noise, or excessive (more than 50%) overshoot on the drive or plant output
    * 4. I like to push the gain up until the system is on the verge of oscillation then back the gain off by a factor of two or four.
    *
    * tune proportional gain:
-   * 1. set the proportional gain to a starting value between 1 and 100: 1 / 100 of the derivative gain value
+   * 1. set the proportional gain to a starting value between 1 and 100: 1 / 100 of the derivative gain value: Kp = 1.0/100.0 * Kd
    * 2. If you see oscillation, drop the proportional gain by factors of eight or 10 until the oscillation stops.
    *    If you don’t see oscillation, increase the proportional gain by factors of eight or 10 until you start seeing oscillation or excessive overshoot.
    *    I usually tune right up to the point of too much overshoot then reduce the gain by a factor of two or four.
@@ -73,10 +75,22 @@ int main(int argc, char **argv) {
    *    If you don’t see oscillation, increase the integrator gain by steps of 8 or ten until you do.
    *    From this point, try to find the gain where the system just breaks into oscillation, and then back the gain off by a factor of 2 or 4.
    */
+  // adjusting differential gain:
+//  const double dt = 1.0;
+//  const double Kp = 0.01;
+//  const double Ki = 0;
+//  const double Kd = (100 * Kp) / 2;
+  // tune proportional gain:
+//  const double dt = 1.0;
+//  const double Kp = 1.0 / 100.0 * ((100 * 0.01) / 2) * 10 * 10 / 4;
+//  const double Ki = 0;
+//  const double Kd = (100 * 0.01) / 2;
+  // increasing integral gain:
   const double dt = 1.0;
-  const double Kp = 0.134611;
-  const double Ki = 0.000270736;
-  const double Kd = 3.05349;
+  const double Kp = 1.0 / 100.0 * ((100 * 0.01) / 2) * 10 * 10 / 4;
+  const double Ki = 0; // (Kp * Kp / (100 * 0.01) / 2) / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10 / 10;
+  const double Kd = (100 * 0.01) / 2;
+
   PID pid(dt, Kp, Ki, Kd);
 
   h.onMessage(
