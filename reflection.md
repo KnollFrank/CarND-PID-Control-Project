@@ -32,13 +32,13 @@ function find_param_where_system_just_breaks_into_oscillation(param):
   return param
 
 function tune():
-  Ki := 0
   Kp := some small value <= 1
+  Ki := 0
   Kd := 0
 
   Kd := find_param_where_system_just_breaks_into_oscillation(100 * Kp)
   Kp := find_param_where_system_just_breaks_into_oscillation(Kd / 100)
   Ki := find_param_where_system_just_breaks_into_oscillation(Kp * Kp / Kd)
 
-  return Ki, Kp, Kd
+  return Kp, Ki, Kd
 ```
