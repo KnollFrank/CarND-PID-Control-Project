@@ -8,9 +8,6 @@ TODO:
 
 ## How the final hyperparameters were chosen
 
-TODO:
-- Student discusses how they chose the final hyperparameters (P, I, D coefficients). This could be have been done through manual tuning, twiddle, SGD, or something else, or a combination!
-
 The Tuning section of the document [PID Without a PhD](https://www.wescottdesign.com/articles/pid/pidWithoutAPhd.pdf) by Tim Wescott describes a method for manually tuning the hyperparameters of a PID controller which can be expressed in pseudo code like this:
 
 ```
@@ -31,13 +28,14 @@ function find_param_where_system_just_breaks_into_oscillation(param):
   return param
 
 function tune():
-  Kp := some small value <= 1
-  Ki := 0
-  Kd := 0
+  P := some small value <= 1
+  I := 0
+  D := 0
 
-  Kd := find_param_where_system_just_breaks_into_oscillation(100 * Kp)
-  Kp := find_param_where_system_just_breaks_into_oscillation(Kd / 100)
-  Ki := find_param_where_system_just_breaks_into_oscillation(Kp * Kp / Kd)
+  D := find_param_where_system_just_breaks_into_oscillation(100 * P)
+  P := find_param_where_system_just_breaks_into_oscillation(D / 100)
+  I := find_param_where_system_just_breaks_into_oscillation(P * P / D)
 
   return Kp, Ki, Kd
 ```
+Manually executing the function `tune()` with initial value P = 0.01 resulted in the final hyperparameters P = 0.125, I = 7.8125000000000023e-13 and D = 0.5.
