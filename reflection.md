@@ -25,68 +25,20 @@ function find_param_where_system_just_breaks_into_oscillation(param):
     While "no oscillation"
       param := param * factor
 
+  fine_tuning_Factor := 2 or 4
   While "oscillation"
-    param := param / 2
+    param := param / fine_tuning_Factor
 
   return param
+
+function tune():
+  Ki := 0
+  Kp := some small value <= 1
+  Kd := 0
+
+  Kd := find_param_where_system_just_breaks_into_oscillation(100 * Kp)
+  Kp := find_param_where_system_just_breaks_into_oscillation(Kd / 100)
+  Ki := find_param_where_system_just_breaks_into_oscillation(Kp * Kp / Kd)
+
+  return Ki, Kp, Kd
 ```
-<ol>
-  <li>Ki := Kp := Kd := 0</li>
-  <li>tune Kd:
-    <ol>
-      <li>Kp := some small value <= 1</li>
-      <li>Kd := 100 * Kp</li>
-      <li>
-        <pre>
-          <code>
-While "no oscillation and no excessive overshoot"
-begin
-  increase Kd
-end
-Kd := Kd / 2 or Kd := Kd / 4</code>
-        </pre>
-    </ol>
-  </li>
-  <li>tune Kp:
-    <ol>
-      <li>Kp = Kd / 100</li>
-      <li>
-      <pre>
-        <code>
-While "oscillation"
-begin
-  Kp := Kp / 8 or Kp := Kp / 10
-end
-While "no oscillation"
-begin
-  Kp := Kp * 8 or Kp := Kp * 10
-end
-While "oscillation"
-begin
-  Kp := Kp / 2
-end</code>
-      </pre>
-      </li>
-    </ol>
-  </li>
-  <li>tune Ki:
-    <ol>
-      <li>Ki := Kp<sup>2</sup>/Kd</li>
-      <li>
-      <pre>
-        <code>
-While "oscillation"
-begin
-  Ki := Ki / 8 or Ki := Ki / 10
-end
-While "no oscillation"
-begin
-  Ki := Ki * 8 or Ki := Ki * 10
-end
-Ki := Ki / 2 or Ki := Ki / 4
-</code>
-      </pre>
-      </li>
-    </ol>
-  </li>
-</ol>
