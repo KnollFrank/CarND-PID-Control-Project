@@ -14,6 +14,22 @@ TODO:
 The final hyperparameters were chosen through manual tuning.
 The Tuning section of the document [PID Without a PhD](https://www.wescottdesign.com/articles/pid/pidWithoutAPhd.pdf) by Tim Wescott describes a manual method for tuning the hyperparameters of a PID controller:
 
+```
+function find_param_where_system_just_breaks_into_oscillation(param):
+  factor := 8 or 10
+  if "oscillation":
+    While "oscillation"
+      param := param / factor
+    param := param * factor
+  else:
+    While "no oscillation"
+      param := param * factor
+
+  While "oscillation"
+    param := param / 2
+
+  return param
+```
 <ol>
   <li>Ki := Kp := Kd := 0</li>
   <li>tune Kd:
