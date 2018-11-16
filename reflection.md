@@ -36,6 +36,6 @@ function tune():
   P := find_param_where_system_just_breaks_into_oscillation(D / 100)
   I := find_param_where_system_just_breaks_into_oscillation(P * P / D)
 
-  return Kp, Ki, Kd
+  return P, I, D
 ```
 Manually executing the function `tune()` with initial value P = 0.01 resulted in the final hyperparameters P = 0.125, I = 7.8125000000000023e-13 and D = 0.5.
