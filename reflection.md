@@ -18,16 +18,16 @@ The Tuning section of the document [PID Without a PhD](https://www.wescottdesign
 function find_param_where_system_just_breaks_into_oscillation(param):
   factor := 8 or 10
   if "oscillation":
-    While "oscillation"
+    While "oscillation":
       param := param / factor
     param := param * factor
   else:
-    While "no oscillation"
+    While "no oscillation":
       param := param * factor
 
-  fine_tuning_Factor := 2 or 4
-  While "oscillation"
-    param := param / fine_tuning_Factor
+  fine_tuning_factor := 2 or 4
+  While "oscillation":
+    param := param / fine_tuning_factor
 
   return param
 
