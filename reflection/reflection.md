@@ -6,6 +6,23 @@ TODO:
 - Student describes the effect of the P, I, D component of the PID algorithm in their implementation. Is it what you expected?
 - Visual aids are encouraged, i.e. record of a small video of the car in the simulator and describe what each component is set to.
 
+P controller:
+- overshoots (see "4. Implementing P controller", 1:20)
+- oscillations: oscillates faster when Kp gets bigger.
+
+
+
+PD controller: (7. PD Controller)
+- avoids overshoot (oscillations)
+
+Systematic Bias (steering drift) kann nicht durch PD controller gelöst werden.
+
+PID controller:
+- solves systematic bias problem.
+
+![PID](PID.png)
+
+
 ## How the final hyperparameters were chosen
 
 The Tuning section of the document [PID Without a PhD](https://www.wescottdesign.com/articles/pid/pidWithoutAPhd.pdf) by Tim Wescott describes a method for manually tuning the hyperparameters of a PID controller which can be expressed in pseudo code like this:
