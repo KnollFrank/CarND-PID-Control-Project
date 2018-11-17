@@ -21,7 +21,7 @@ As expected, the car drives close to the middle of the lane line, and doesn't ov
 
 ## PID Controller
 
-AS there is no systematic bias (e.g. steering drift), there is no need for a non-zero I parameter.
+As there is no systematic bias (e.g. steering drift), there is no need for a non-zero I parameter.
 
 ## How the final hyperparameters were chosen
 
